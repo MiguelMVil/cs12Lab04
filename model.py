@@ -61,7 +61,22 @@ class ConnectTacToeModel:
 
     def winner_checker(self, player: Player):
         if self._win_con is WinConditionType.TIC_TAC_TOE:
-            pass
+            for row in range(self.row_count):
+                cells: str = set()
+                for col in range(self.col_count):
+                    cells.add(self._grid[row][col])
+                if len(cells) == 1:
+                    self._winner = self.player
+                    self._is_game_done = True
+
+            for column in range(self.col_count):
+                cells: str = set()
+                for row in range(self.row_count):
+                    cells.add(self._grid[row][col])
+                if len(cells) == 1:
+                    self._winner = self.player
+                    self._is_game_done = True
+                    
             # tic tac toe code here
 
             # for row in range(self.row_count):
