@@ -43,7 +43,7 @@ class ConnectTacToeView:
     def print_draw(self):
         print('Sadly, the game is a draw...')
 
-    def get_input(self, failed_in_past: bool = False) -> Sequence[int, int]:
+    def get_input(self, failed_in_past: bool = False) -> Sequence[int]:
         i, j = -1, -1
 
         if failed_in_past:
