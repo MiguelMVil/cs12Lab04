@@ -7,7 +7,7 @@ class ConnectTacToeView:
     def __init__(self):
         pass
 
-    def print_grid(self, grid: list[list[Player]]) -> None:
+    def print_grid(self, grid: list[list[Player | None]]) -> None:
 
         grid_header: str = 'X 1 2 3 4 5 6 7' 
 
