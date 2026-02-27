@@ -17,13 +17,16 @@ class ConnectTacToeController:
                 view.print_player(model.current_player)
                 view.print_grid(model.grid)
                 i, j = view.get_input()
-                model.choose_cell(j, i)
+                while model.choose_cell(i - 1, j - 1) is False:
+                    i, j = view.get_input(True)
+
                 model.elapse_player_turn()
             else:
                 view.print_player(model.current_player)
                 view.print_grid(model.grid)
                 i, j = view.get_input()
-                model.choose_cell(j, i)
+                while model.choose_cell(i - 1, j - 1) is False:
+                    i, j = view.get_input(True)
                 model.elapse_player_turn()
             view.print_winner(model.current_player)
 

@@ -18,11 +18,11 @@ class ConnectTacToeView:
 
             for cell in grid[row - 1]:
                 if cell is Player.P1:
-                    curr_row += 'X'
+                    curr_row += 'X '
                 elif cell is Player.P2:
-                    curr_row += 'O'
+                    curr_row += 'O '
                 else:
-                    curr_row += '.'
+                    curr_row += '. '
 
             print(curr_row)
 
@@ -57,7 +57,7 @@ class ConnectTacToeView:
             except:
                 pass
 
-        while not 1 <= i < 6:
+        while not 1 <= j < 6:
             try:
                 j = int(input('Choose a column [1 - 6]: '))
             except KeyboardInterrupt:

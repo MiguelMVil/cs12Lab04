@@ -38,7 +38,7 @@ class ConnectTacToeModel:
         return self._grid
         
     def choose_cell(self, row: int, col: int) -> bool:
-        if self._is_game_done or self._grid[row][col] is not None:
+        if self._is_game_done or self.get_owner(row, col) is not None:
             return False
 
         self._grid[row][col] = self._current_player
