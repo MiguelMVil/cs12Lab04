@@ -13,22 +13,14 @@ class ConnectTacToeController:
         view = self._view
 
         while not model.is_game_done:
-            if model.current_player == Player.P1:
-                view.print_player(model.current_player)
-                view.print_grid(model.grid)
-                i, j = view.get_input()
-                while model.choose_cell(i - 1, j - 1) is False:
-                    i, j = view.get_input(True)
-
+            view.print_player(model.current_player)
+            view.print_grid(model.grid)
+            i, j = view.get_input()
+            model.choose_cell(i-1, j-1)
+            model.winner_checker(model.current_player)
+            if not model.winner_exists():
                 model.elapse_player_turn()
-            else:
-                view.print_player(model.current_player)
-                view.print_grid(model.grid)
-                i, j = view.get_input()
-                while model.choose_cell(i - 1, j - 1) is False:
-                    i, j = view.get_input(True)
-                model.elapse_player_turn()
-            view.print_winner(model.current_player)
+        view.print_winner(model.current_player)
 
 if __name__ == "__main__":
     model = ConnectTacToeModel(WinConditionType.TIC_TAC_TOE, 
