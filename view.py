@@ -43,23 +43,20 @@ class ConnectTacToeView:
     def print_draw(self):
         print('Sadly, the game is a draw...')
 
-    def get_input(self, failed_in_past: bool = False) -> Sequence[int]:
+    def get_input(self) -> Sequence[int]:
         i, j = -1, -1
-
-        if failed_in_past:
-            print('That was an invalid square, choose again!')
-
-        while not 1 <= i < 7:
+        
+        while not 1 <= i <= 6:
             try:
-                i = int(input('Choose a row [1 - 7]: '))
+                i = int(input('Choose a row [1 - 6]: '))
             except KeyboardInterrupt:
                 exit()
             except:
                 pass
 
-        while not 1 <= j < 6:
+        while not 1 <= j <= 7:
             try:
-                j = int(input('Choose a column [1 - 6]: '))
+                j = int(input('Choose a column [1 - 7]: '))
             except KeyboardInterrupt:
                 exit()
             except:
