@@ -36,46 +36,90 @@ class ConnectTacToeModel:
     @property
     def grid(self) -> list[list[Player | None]]:
         return self._grid
-        
+    
+    def place_token(self, row: int, col: int):
+        # Place token in the given row, col
+        self._grid[row][col] = self.current_player
+
+    def elapse_player_turn(self):
+        # Elapse the turn of player
+        if self.current_player == Player.P1:
+            self._current_player = Player.P2
+        else:
+            self._current_player = Player.P1
+
     def choose_cell(self, row: int, col: int) -> bool:
-        if self._is_game_done or self.get_owner(row, col) is not None:
+        # Check if the cell is occupied or not
+        if self._grid[row][col] is not None:
             return False
-
-        self._grid[row][col] = self._current_player
-        self.winner_checker(self._current_player)
-
-        if self.grid_checker() and not self._is_game_done:
+        else:
+            self.place_token(row, col)
+            return True
+    
+    def check_len_cells(self, cells: set[Player | None]):
+        # Get the length of the set of row/col
+        if len(cells) == 1 and None not in cells:
             self._is_game_done = True
+            self._winner = self._current_player
+    
+    def check_rows(self):
+        # Check the rows in the grid
+        for row in range(self.row_count):
+            cells: set[Player | None] = set()
+            for col in range(self.col_count):
+                cells.add(self.grid[row][col])
+            # print(cells)  # check the cells being added
+            self.check_len_cells(cells)
+
+    def check_cols(self):
+        # Check the cols in the grid
+        for col in range(self.row_count):
+            cells: set[Player | None] = set()
+            for row in range(self.row_count):
+                cells.add(self.grid[row][col])
+            # print(cells)  # check the cells being added
+            self.check_len_cells(cells)
+
+    def winner_exists(self) -> bool:
+        if self._is_game_done is True:
+            return True
+        else:
             return False
+    
+    def win_tic_tac_toe(self):
+        self.check_rows()
+        self.check_cols()
 
-        if self._is_game_done:
-            return False
-
-        if not self._is_game_done:
-            self.elapse_player_turn
-
-        return True
+    def win_not_connect_four(self):
+        ...
+    
+    def winner_checker(self, player: Player):
+        if self._win_con == WinConditionType.TIC_TAC_TOE:
+            self.win_tic_tac_toe()
+        else:
+            ...
 
     def get_owner(self, row: int, col: int) -> Player | None:
         return self._grid[row][col] if self._grid[row][col] is not None else None
+    
 
-    def winner_checker(self, player: Player):
-        if self._win_con is WinConditionType.TIC_TAC_TOE:
-            for row in range(self.row_count):
-                cells: str = set()
-                for col in range(self.col_count):
-                    cells.add(self._grid[row][col])
-                if len(cells) == 1:
-                    self._winner = self.player
-                    self._is_game_done = True
+    # def winner_checker(self, player: Player):
+    #     if self._win_con is WinConditionType.TIC_TAC_TOE:
+    #         for row in range(self.row_count):
+    #             cells: str = set()
+    #             for col in range(self.col_count):
+    #                 cells.add(self._grid[row][col])
+    #             if len(cells) == 1:
+    #                 self._winner = self.player
+    #                 self._is_game_done = True
 
-            for column in range(self.col_count):
-                cells: str = set()
-                for row in range(self.row_count):
-                    cells.add(self._grid[row][col])
-                if len(cells) == 1:
-                    self._winner = self.player
-                    self._is_game_done = True
+    #         for column in range(self.col_count):
+    #             cells: str = set()
+    #             for row in range(self.row_count):
+    #                 cells.add(self._grid[row][col])
+    #             if len(cells) == 1:
+    #                 self._winner = self.player
+    #                 self._is_game_done = True
                     
             # tic tac toe code here
 
@@ -90,8 +134,8 @@ class ConnectTacToeModel:
             #     if checker:
             #         self._winner = player
             #         self._is_game_done = True
-        else:
-            pass
+        # else:
+        #     pass
 
 
     # def line_checker(self, line: list[tuple[int, int]]) -> bool:
@@ -112,8 +156,4 @@ class ConnectTacToeModel:
             for col in range(self.col_count)
             )
 
-    def elapse_player_turn(self):
-        if self.current_player == Player.P1:
-            self._current_player = Player.P2
-        else:
-            self._current_player = Player.P1
+    
